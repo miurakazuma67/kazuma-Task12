@@ -12,14 +12,15 @@ final class TaxModel {
     
     let notificatonCenter = NotificationCenter()
     
-    private(set) var count = 0 {
+    private(set) var includingTax = 0 {
         didSet {
             notificatonCenter.post(name: .init(rawValue: TaxModel.notificationName),
                                    object: includingTax)
         }
     }
     func calculateIncludingTax(_ excludingTax: Int, _ consumptionTax: Float) {
-        IncludingTax = excludingTax + Int(Float(excludingTax) * consumptionTax * 0.01)
+        includingTax = excludingTax + Int(Float(excludingTax) * consumptionTax * 0.01)
     }
     
 }
+

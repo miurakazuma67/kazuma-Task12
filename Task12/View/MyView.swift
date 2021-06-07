@@ -7,13 +7,12 @@
 
 import UIKit
 
-class CustomView: UIView {
+class MyView: UIView {
     
     @IBOutlet weak var excludingTaxTextField: UITextField!
-    
     @IBOutlet weak var consumptionTaxTextField: UITextField!
-    
-    @IBOutlet weak var includingTaxTextField: UILabel!
+    @IBOutlet weak var includingTaxLabel: UILabel!
+    @IBOutlet weak var culculateButton: UIButton!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +25,7 @@ class CustomView: UIView {
     }
     
     private func loadNib() {
-        if let view = Bundle.main.loadNibNamed("CustomView", owner: self, options: nil)?.first as? UIView {
+        if let view = Bundle.main.loadNibNamed("MyView", owner: self, options: nil)?.first as? UIView {
             view.frame = self.bounds
             self.addSubview(view)
         }

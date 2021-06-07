@@ -11,8 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomView" customModule="Task12" customModuleProvider="target">
             <connections>
                 <outlet property="consumptionTaxTextField" destination="ucX-66-NkA" id="p2w-Zt-6f0"/>
+                <outlet property="culculateButton" destination="xfc-9i-Ktm" id="O2P-xX-2hq"/>
                 <outlet property="excludingTaxTextField" destination="g9c-jF-0hD" id="xQa-Hj-vw2"/>
-                <outlet property="includingTaxTextField" destination="Pik-sl-2wc" id="Psa-aR-JdY"/>
+                <outlet property="includingTaxLabel" destination="Pik-sl-2wc" id="hQH-PS-3Bo"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -55,12 +56,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ucX-66-NkA">
-                            <rect key="frame" x="79.5" y="0.0" width="133" height="34"/>
+                            <rect key="frame" x="79.5" y="0.0" width="135" height="34"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="円" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMU-l0-Wrd">
-                            <rect key="frame" x="222.5" y="0.0" width="17.5" height="34"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMU-l0-Wrd">
+                            <rect key="frame" x="224.5" y="0.0" width="15.5" height="34"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
