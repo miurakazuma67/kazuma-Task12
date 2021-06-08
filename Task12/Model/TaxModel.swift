@@ -7,20 +7,21 @@
 
 import UIKit
 
+protocol calculateDelegate: class {
+    func calculateIncludingTax()
+}
+
 final class TaxModel {
-    static let notificationName = "TaxModelChanged"
+    internal var includingTax: Int = 0
+    var excludingTax: Int = 0
+    var consumptionTax: Float = 0.0
     
-    let notificatonCenter = NotificationCenter()
+    //データの変更を監視するためにdelegateを設定
+    weak var delegate: calculateDelegate? = nil
     
-    private(set) var includingTax = 0 {
-        didSet {
-            notificatonCenter.post(name: .init(rawValue: TaxModel.notificationName),
-                                   object: includingTax)
-        }
+    func calculate() {
+        includingTax = excludingTax + Int(consumptionTax*0.01)
+        delegate?.calculateIncludingTax()
     }
-    func calculateIncludingTax(_ excludingTax: Int, _ consumptionTax: Float) {
-        includingTax = excludingTax + Int(Float(excludingTax) * consumptionTax * 0.01)
-    }
-    
 }
 
