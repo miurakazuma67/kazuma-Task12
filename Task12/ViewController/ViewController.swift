@@ -10,25 +10,36 @@
 
 import UIKit
 
+protocol calculateDelegate: class {
+    func setIncludingTax(_ excludingTax: Int, _ consumptionTax: Double)
+    func getIncludingTax() -> Int
+}
+
 final class ViewController: UIViewController, calculateDelegate {
     
     @IBOutlet private weak var excludingTaxTextField: UITextField!
     @IBOutlet private weak var consumptionTaxTextField: UITextField!
-    @IBOutlet private weak var totalLabel: UIStackView!
+    @IBOutlet private weak var totalLabel: UILabel!
     
     let taxModel = TaxModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        calculateIncludingTax()
         taxModel.delegate = self
     }
     
-    func calculateIncludingTax() {
-        let excludingTax = Int(excludingTaxTextField.text ?? "") ?? 0
-        let consumptionTax = Float(consumptionTaxTextField.text ?? "") ??  0.0
-        
+    func setIncludingTax(_ excludingTax: Int, _ consumptionTax: Double) {
+        taxModel.set(excludingTax, consumptionTax)
     }
 
+    func getIncludingTax() -> Int {
+        let includingTax = taxModel.get()
+        return includingTax
+    }
+    
+    @IBAction func calculate(_ sender: Any) {
+        
+    }
+    
 }
 
