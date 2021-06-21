@@ -15,13 +15,15 @@ final class TaxModel {
     //データの変更を監視するためにdelegateを設定
     weak var delegate: calculateDelegate? 
     
-    func set(_ excludingTax: Int, _ consumptionTax: Double) {
-        self.excludingTax = excludingTax
-        self.consumptionTax = consumptionTax
-    }
-    
-    func get() -> Int {
-        let includingTax = self.excludingTax + Int(self.consumptionTax*0.01)
-        return includingTax
+    var calculate: Int {
+        func set(_ excludingTax: Int, _ consumptionTax: Double) {
+            self.excludingTax = excludingTax
+            self.consumptionTax = consumptionTax
+        }
+        
+        func get() -> Int {
+            let includingTax = Int(self.excludingTax) + Int(self.consumptionTax*0.01)
+            return includingTax
+        }
     }
 }
