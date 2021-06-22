@@ -10,11 +10,6 @@
 
 import UIKit
 
-protocol calculateDelegate: class {
-    func setIncludingTax(_ excludingTax: Int, _ consumptionTax: Double)
-    func getIncludingTax() -> Int
-}
-
 final class ViewController: UIViewController, calculateDelegate {
     
     @IBOutlet private weak var excludingTaxTextField: UITextField!
@@ -26,6 +21,7 @@ final class ViewController: UIViewController, calculateDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         taxModel.delegate = self
+        didChange()
     }
     
     func setIncludingTax(_ excludingTax: Int, _ consumptionTax: Double) {
@@ -38,8 +34,11 @@ final class ViewController: UIViewController, calculateDelegate {
     }
     
     @IBAction func calculate(_ sender: Any) {
-        
+        didChange()
     }
     
+    func didChange() {
+        self.totalLabel.text = String(taxModel.includingTax)
+    }
 }
 

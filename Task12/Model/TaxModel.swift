@@ -7,23 +7,28 @@
 
 import UIKit
 
+protocol calculateDelegate: class {
+    func didChange()
+}
+
 final class TaxModel {
     internal var includingTax: Int = 0
     var excludingTax: Int = 0
     var consumptionTax: Double = 0.0
     
     //データの変更を監視するためにdelegateを設定
-    weak var delegate: calculateDelegate? 
+    weak var delegate: calculateDelegate? = nil
     
-    var calculate: Int {
         func set(_ excludingTax: Int, _ consumptionTax: Double) {
             self.excludingTax = excludingTax
             self.consumptionTax = consumptionTax
+            delegate?.didChange()
         }
-        
-        func get() -> Int {
-            let includingTax = Int(self.excludingTax) + Int(self.consumptionTax*0.01)
-            return includingTax
-        }
+    
+    func get() -> Int {
+        let includingTax = self.excludingTax + Int(self.consumptionTax*0.01)
+        return includingTax
+        delegate?.didChange()
     }
+    
 }
