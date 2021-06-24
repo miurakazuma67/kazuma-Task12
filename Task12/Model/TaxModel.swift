@@ -12,11 +12,10 @@ protocol calculateDelegate: class {
 }
 
 final class TaxModel {
-    internal var includingTax: Int = 0
-    var excludingTax: Int = 0
-    var consumptionTax: Double = 0.0
+    internal var includingTax: Int?
+    private var excludingTax: Int?
+    private var consumptionTax: Double?
     
-    //データの変更を監視するためにdelegateを設定
     weak var delegate: calculateDelegate? = nil
     
         func set(_ excludingTax: Int, _ consumptionTax: Double) {
@@ -26,7 +25,7 @@ final class TaxModel {
         }
     
     func get() -> Int {
-        let includingTax = self.excludingTax + Int(self.consumptionTax*0.01)
+        let includingTax = excludingTax ?? 0 + Int((consumptionTax ?? 0.0 * 0.01) )
         return includingTax
         delegate?.didChange()
     }

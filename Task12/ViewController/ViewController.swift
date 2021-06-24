@@ -21,16 +21,6 @@ final class ViewController: UIViewController, calculateDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         taxModel.delegate = self
-        didChange()
-    }
-    
-    func setIncludingTax(_ excludingTax: Int, _ consumptionTax: Double) {
-        taxModel.set(excludingTax, consumptionTax)
-    }
-
-    func getIncludingTax() -> Int {
-        let includingTax = taxModel.get()
-        return includingTax
     }
     
     @IBAction func calculate(_ sender: Any) {
@@ -38,7 +28,13 @@ final class ViewController: UIViewController, calculateDelegate {
     }
     
     func didChange() {
-        self.totalLabel.text = String(taxModel.includingTax)
+        let excludingTax = Int(excludingTaxTextField.text ?? "")
+        let consumptionTax = Double(consumptionTaxTextField.text ?? "")
+        
+        taxModel.set(excludingTax ?? 0, consumptionTax ?? 0.0)
+        let includingTax = taxModel.get()
+        
+        self.totalLabel.text = String(includingTax)
     }
 }
 
