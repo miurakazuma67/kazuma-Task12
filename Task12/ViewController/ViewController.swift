@@ -22,18 +22,15 @@ final class ViewController: UIViewController, calculateDelegate {
         super.viewDidLoad()
         taxModel.delegate = self
     }
-    
     @IBAction func calculate(_ sender: Any) {
         didChange()
     }
     
     func didChange() {
-        let excludingTax = Int(excludingTaxTextField.text ?? "")
-        let consumptionTax = Double(consumptionTaxTextField.text ?? "")
-        
-        taxModel.set(excludingTax ?? 0, consumptionTax ?? 0.0)
+        guard let excludingTax = Int(excludingTaxTextField.text!) else { return }
+        guard let consumptionTax = Double(consumptionTaxTextField.text!) else { return }
+        taxModel.set(excludingTax, consumptionTax)
         let includingTax = taxModel.get()
-        
         self.totalLabel.text = String(includingTax)
     }
 }

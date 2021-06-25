@@ -12,7 +12,7 @@ protocol calculateDelegate: class {
 }
 
 final class TaxModel {
-    internal var includingTax: Int?
+    internal var includingTax: Int = 0
     private var excludingTax: Int?
     private var consumptionTax: Double?
     
@@ -21,13 +21,13 @@ final class TaxModel {
         func set(_ excludingTax: Int, _ consumptionTax: Double) {
             self.excludingTax = excludingTax
             self.consumptionTax = consumptionTax
-            delegate?.didChange()
         }
     
     func get() -> Int {
-        let includingTax = excludingTax ?? 0 + Int((consumptionTax ?? 0.0 * 0.01) )
+        let taxMoney = Double(excludingTax!) * consumptionTax!
+        print(taxMoney)
+        let includingTax = excludingTax! + Int(taxMoney)/100
         return includingTax
-        delegate?.didChange()
     }
     
 }
