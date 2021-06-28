@@ -5,8 +5,7 @@
 //  Created by 三浦　一真 on 2021/06/02.
 //
 
-//  Created by 三浦　一真 on 2021/06/02.
-//
+
 
 import UIKit
 
@@ -21,7 +20,10 @@ final class ViewController: UIViewController, calculateDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         taxModel.delegate = self
+        let taxRate = UserDefaults.standard.integer(forKey: "TaxRate")
+        self.consumptionTaxTextField.text = String(taxRate)
     }
+    
     @IBAction func calculate(_ sender: Any) {
         didChange()
     }
@@ -32,6 +34,7 @@ final class ViewController: UIViewController, calculateDelegate {
         taxModel.set(excludingTax, consumptionTax)
         let includingTax = taxModel.get()
         self.totalLabel.text = String(includingTax)
+        UserDefaults.standard.set(consumptionTax, forKey: "TaxRate")
     }
 }
 
