@@ -7,27 +7,23 @@
 
 import UIKit
 
-protocol calculateDelegate: class {
-    func didChange()
+// Using 'class' keyword for protocol inheritance is deprecated; use 'AnyObject' instead
+protocol TaxModelDelegate: AnyObject {
+    func didChange(includingTax: Int)
 }
 
 final class TaxModel {
-    internal var includingTax: Int = 0
-    private var excludingTax: Int?
-    private var consumptionTax: Double?
-    
-    weak var delegate: calculateDelegate? = nil
-    
-        func set(_ excludingTax: Int, _ consumptionTax: Double) {
-            self.excludingTax = excludingTax
-            self.consumptionTax = consumptionTax
-        }
-    
-    func get() -> Int {
-        let taxMoney = Double(excludingTax!) * consumptionTax!
-        print(taxMoney)
-        let includingTax = excludingTax! + Int(taxMoney)/100
-        return includingTax
+    weak var delegate: TaxModelDelegate?
+
+    func loadInitialTaxRate() -> Int {
+        UserDefaults.standard.integer(forKey: "TaxRate")
     }
-    
+
+    func set(excludingTax: Int, consumptionTax: Double) {
+        UserDefaults.standard.set(consumptionTax, forKey: "TaxRate")
+
+        let taxMoney = Double(excludingTax) * consumptionTax
+        let includingTax = excludingTax + Int(taxMoney) / 100
+        delegate?.didChange(includingTax: includingTax)
+    }
 }
