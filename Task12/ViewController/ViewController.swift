@@ -9,32 +9,29 @@
 
 import UIKit
 
-final class ViewController: UIViewController, calculateDelegate {
+final class ViewController: UIViewController, TaxModelDelegate {
     
     @IBOutlet private weak var excludingTaxTextField: UITextField!
     @IBOutlet private weak var consumptionTaxTextField: UITextField!
     @IBOutlet private weak var totalLabel: UILabel!
     
-    let taxModel = TaxModel()
+    private let taxModel = TaxModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         taxModel.delegate = self
-        let taxRate = UserDefaults.standard.integer(forKey: "TaxRate")
+        let taxRate = taxModel.loadInitialTaxRate()
         self.consumptionTaxTextField.text = String(taxRate)
     }
     
     @IBAction func calculate(_ sender: Any) {
-        didChange()
-    }
-    
-    func didChange() {
         guard let excludingTax = Int(excludingTaxTextField.text!) else { return }
         guard let consumptionTax = Double(consumptionTaxTextField.text!) else { return }
-        taxModel.set(excludingTax, consumptionTax)
-        let includingTax = taxModel.get()
-        self.totalLabel.text = String(includingTax)
-        UserDefaults.standard.set(consumptionTax, forKey: "TaxRate")
+
+        taxModel.set(excludingTax: excludingTax, consumptionTax: consumptionTax)
+    }
+    
+    func didChange(includingTax: Int) {
+        totalLabel.text = String(includingTax)
     }
 }
-
